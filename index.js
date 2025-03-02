@@ -12,7 +12,7 @@ app.use(cors({
     allowedHeaders: "Content-Type"
   }));
 app.use(express.json());
-
+const PORT = process.env.PORT || 5000;
 const DELHIVERY_API_KEY = process.env.DELHIVERY_API;
 const DELHIVERY_URL = process.env.DELHIVERY_SHIPPING_URL;
 
@@ -74,5 +74,4 @@ app.post("/api/order", async (req, res) => {
     }
   });
 
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
