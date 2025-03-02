@@ -7,7 +7,7 @@ const crypto = require("crypto");
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: [`http://localhost:${PORT}`, "https://dawood-beekeeper.vercel.app"],
+    origin: [`http://localhost:5173`, "https://dawood-beekeeper.vercel.app"],
     methods: "GET,POST",
     allowedHeaders: "Content-Type"
   }));
