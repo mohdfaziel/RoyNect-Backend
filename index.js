@@ -6,7 +6,11 @@ const cors = require("cors");
 const crypto = require("crypto");
 const app = express();
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+    origin: [`http://localhost:${PORT}`, "https://dawood-beekeeper.vercel.app"],
+    methods: "GET,POST",
+    allowedHeaders: "Content-Type"
+  }));
 app.use(express.json());
 
 const DELHIVERY_API_KEY = process.env.DELHIVERY_API;
