@@ -12,6 +12,9 @@ app.use(express.json());
 const DELHIVERY_API_KEY = process.env.DELHIVERY_API;
 const DELHIVERY_URL = process.env.DELHIVERY_SHIPPING_URL;
 
+app.get('/',(req,res)=>{
+    res.send(`Dawood-Beekeeper server is running on port ${PORT}`);
+});
 app.get('/api/shipping-cost', async (req, res) => {
     const { origin_pincode, dest_pincode, weight } = req.query; // Get query params
 
@@ -51,7 +54,7 @@ app.post("/api/order", async (req, res) => {
       res.status(500).send("Some error occured");
     }
   });
-  
+
   app.post("/api/order/validate", async (req, res) => {
     try {
      const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
