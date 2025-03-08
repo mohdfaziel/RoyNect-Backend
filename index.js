@@ -15,6 +15,22 @@ const DELHIVERY_URL = process.env.DELHIVERY_SHIPPING_URL;
 app.get('/',(req,res)=>{
     res.send(`Dawood-Beekeeper server is running on port ${PORT}`);
 });
+app.get('/api/city-state',async (req,res)=>
+{
+    const {pincode} = req.query;
+    const response = await fetch(`https://track.delhivery.com/c/api/pin-codes/json/?filter_codes=${pincode}`,
+      {
+          method: "GET",
+          headers: {
+              "Authorization": `Token ${DELHIVERY_API_KEY}`,
+              "Accept": "application/json"
+          }
+      }
+  );
+  const data = await response.json();
+  res.json(data);
+});
+
 app.get('/api/shipping-cost', async (req, res) => {
     const { origin_pincode, dest_pincode, weight } = req.query; // Get query params
 
