@@ -37,7 +37,7 @@ app.get('/api/shipping-cost', async (req, res) => {
     try {
         const response = await axios.get(DELHIVERY_URL, {
             params: {
-                md: "E",
+                md: "S",
                 cgm: (weight*1000),   
                 o_pin: origin_pincode,  
                 d_pin: dest_pincode, 
