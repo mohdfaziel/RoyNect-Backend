@@ -13,7 +13,7 @@ const DELHIVERY_API_KEY = process.env.DELHIVERY_API;
 const DELHIVERY_URL = process.env.DELHIVERY_SHIPPING_URL;
 
 app.get('/',(req,res)=>{
-    res.send(`Dawood-Beekeeper server is running on port ${PORT}`);
+    res.send(`RoyNect's server is running on port ${PORT}`);
 });
 app.get('/api/city-state',async (req,res)=>
 {
