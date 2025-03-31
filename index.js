@@ -19,7 +19,7 @@ app.get('/',(req,res)=>{
   res.send(`RoyNect's server is running on port ${PORT}`);
 });
 //NodeMailer
-app.get("/sendEmail", async (req, res) => {
+app.post("/sendEmail", async (req, res) => {
   try {
     const {to,subject,html} = req.query;
     const transporter = nodemailer.createTransport({
@@ -34,10 +34,8 @@ app.get("/sendEmail", async (req, res) => {
 
     const mailOptions = {
       from: NODEMAILER_EMAIL,
-      to: "mohdfazel969@gmail.com",
-      // to: to,
-      subject: "Hello",
-      // subject: subject,
+      to: to,
+      subject: subject,
       text: html
     };
     const info = await transporter.sendMail(mailOptions);
