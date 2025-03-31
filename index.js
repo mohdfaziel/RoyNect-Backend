@@ -36,7 +36,7 @@ app.post("/sendEmail", async (req, res) => {
       from: NODEMAILER_EMAIL,
       to: to,
       subject: subject,
-      text: html
+      html: html
     };
     const info = await transporter.sendMail(mailOptions);
     console.log("Email sent successfully:", info.response);
