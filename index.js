@@ -1,4 +1,5 @@
 const express = require('express');
+const nodemailer = require("nodemailer");
 const axios = require('axios');
 require('dotenv').config();
 const Razorpay = require("razorpay");
@@ -11,10 +12,44 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 const DELHIVERY_API_KEY = process.env.DELHIVERY_API;
 const DELHIVERY_URL = process.env.DELHIVERY_SHIPPING_URL;
+const NODEMAILER_EMAIL = process.env.NODEMAILER_EMAIL;
+const NODEMAILER_PASS = process.env.NODEMAILER_PASS;
 
 app.get('/',(req,res)=>{
-    res.send(`RoyNect's server is running on port ${PORT}`);
+  res.send(`RoyNect's server is running on port ${PORT}`);
 });
+//NodeMailer
+app.get("/sendEmail", async (req, res) => {
+  try {
+    const {to,subject,html} = req.query;
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      secure: true,
+      port: 465,
+      auth: {
+        user: NODEMAILER_EMAIL,
+        pass: NODEMAILER_PASS, 
+      },
+    });
+
+    const mailOptions = {
+      from: NODEMAILER_EMAIL,
+      to: "mohdfazel969@gmail.com",
+      // to: to,
+      subject: "Hello",
+      // subject: subject,
+      text: html
+    };
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully:", info.response);
+    res.send("Email sent successfully!");
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).send("Failed to send email");
+  }
+});
+
+//Availability
 app.get('/api/city-state',async (req,res)=>
 {
     const {pincode} = req.query;
@@ -31,6 +66,7 @@ app.get('/api/city-state',async (req,res)=>
   res.json(data);
 });
 
+//Shipping Cost
 app.get('/api/shipping-cost', async (req, res) => {
     const { origin_pincode, dest_pincode, weight } = req.query;
 
@@ -54,6 +90,7 @@ app.get('/api/shipping-cost', async (req, res) => {
     }
 });
 
+//RazorPay
 app.post("/api/order", async (req, res) => {
     try {
       const razorpay = new Razorpay({
@@ -67,6 +104,7 @@ app.post("/api/order", async (req, res) => {
       }
       res.json(order);
     } catch (error) {
+      console.log("Order Failed");
       res.status(500).send("Some error occured");
     }
   });
