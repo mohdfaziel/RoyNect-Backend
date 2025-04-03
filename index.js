@@ -31,7 +31,6 @@ app.post("/sendEmail", async (req, res) => {
         pass: NODEMAILER_PASS, 
       },
     });
-
     const mailOptions = {
       from: NODEMAILER_EMAIL,
       to: to,
