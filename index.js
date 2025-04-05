@@ -65,14 +65,14 @@ app.get('/api/city-state',async (req,res)=>
 
 //Shipping Cost
 app.get('/api/shipping-cost', async (req, res) => {
-    const { origin_pincode, dest_pincode, weight } = req.query;
+    const {dest_pincode, weight } = req.query;
 
     try {
         const response = await axios.get(DELHIVERY_URL, {
             params: {
                 md: "S",
                 cgm: (weight*1000),   
-                o_pin: origin_pincode,  
+                o_pin: 182222,  
                 d_pin: dest_pincode, 
                 ss: "Delivered" 
             },
